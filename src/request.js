@@ -1,0 +1,53 @@
+const API = "https://gateway.marvel.com/v1/public/"
+const API_KEY = "458f6c63683c89d3b7a2dc77b8514cf2"
+
+// fetch('http://example.com/movies.json')
+export const getJSON = (request) => {
+    return new Promise((resolve, reject) => {
+        request.method = "GET"
+        doRequest(request).then((response) => {
+            response.json().then(resolve).catch(reject)
+        }).catch(reject)
+    })
+}
+
+export const doRequest = (request) => {
+    if (!request.headers) {
+        request.headers = {}
+    }
+    if (request.method !== "GET" && !request.headers.hasOwnProperty("Content-Type")) {
+        request.headers["Content-Type"] = "application/x-www-form-urlencoded"
+        request.body = encodeParameters(request.body)
+    }
+    if (!request.headers.hasOwnProperty("Accept")) {
+        request.headers["Accept"] = "application/json"
+    }
+    if (!request.headers.hasOwnProperty("Authorization") && request.accessToken) {
+        request.headers["Authorization"] = `Bearer ${request.accessToken}`
+    }
+
+    return new Promise((resolve, reject) => {
+        fetch(new Request(`${API + request.url}?apikey=${API_KEY}`, request)).then((response) => {
+            response.traceId = response.headers.get("x-trace-id")
+            if (response.status < 400) {
+                return resolve(response)
+            }
+            return reject(response)
+        }).catch((response) => {
+            if (response.headers) {
+                response.traceId = response.headers.get("x-trace-id")
+            }
+            return reject(response)
+        })
+    })
+}
+
+const encodeParameters = (params) => {
+    const formBody = []
+    for (const property in params) {
+        const encodedKey = encodeURIComponent(property)
+        const encodedValue = encodeURIComponent(params[property])
+        formBody.push(`${encodedKey}=${encodedValue}`)
+    }
+    return `${formBody.join("&")}`
+}
