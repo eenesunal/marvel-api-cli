@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import Search from "../components/Search/Search";
+import { CharacterDetail, ComicDetail, CharacterSearch, ComicSearch, Selection } from "../components"
 
 import './App.css'
 
@@ -19,7 +19,13 @@ export default class App extends Component {
 
   render() {
     return (
-      <Search />
-    );
+      <div>
+        <CharacterDetail />
+        <ComicDetail />
+        <CharacterSearch />
+        <ComicSearch />
+        <Selection />
+      </div>
+    )
   }
 }
