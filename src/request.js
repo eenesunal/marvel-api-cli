@@ -1,7 +1,6 @@
 const API = "https://gateway.marvel.com/v1/public/"
 const API_KEY = "458f6c63683c89d3b7a2dc77b8514cf2"
 
-// fetch('http://example.com/movies.json')
 export const getJSON = (request) => {
     return new Promise((resolve, reject) => {
         request.method = "GET"
