@@ -1,14 +1,17 @@
 import React from "react"
+import { Redirect } from "react-router-dom"
 
-import { Container, Characters, Comics, Overlay, Title } from "./Selection.styled";
+import { Container, Characters, Comics, Overlay, Title } from "./Selection.styled"
 
 export default class Selection extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
 
         this.state = {
             charactersHover: false,
-            comicsHover: false
+            comicsHover: false,
+            charactersClicked: false,
+            comicsClicked: false,
         }
     }
 
@@ -36,23 +39,45 @@ export default class Selection extends React.Component {
         })
     }
 
+    onCharacterClick = () => {
+        this.setState({
+            charactersClicked: true
+        });
+    }
+
+    onComicClick = () => {
+        this.setState({
+            comicsClicked: true
+        });
+    }
+
     render() {
-        const { charactersHover, comicsHover } = this.state;
+        const { charactersHover, charactersClicked, comicsHover, comicsClicked } = this.state;
+
+        if (charactersClicked) return <Redirect push to="/characters" />
+        if (comicsClicked) return <Redirect push to="/comics" />
+
         return (
             <Container>
-                <Characters onMouseOver={this.onCharactersMouseOver} onMouseLeave={this.onCharactersMouseLeave}>
+                <Characters
+                    onMouseOver={this.onCharactersMouseOver}
+                    onMouseLeave={this.onCharactersMouseLeave}
+                >
                     {
                         charactersHover ?
-                            <Overlay>
+                            <Overlay onClick={this.onCharacterClick}>
                                 <Title>CHARACTERS</Title>
                             </Overlay> :
                             <React.Fragment />
                     }
                 </Characters>
-                <Comics onMouseOver={this.onComicsMouseOver} onMouseLeave={this.onComicsMouseLeave}>
+                <Comics
+                    onMouseOver={this.onComicsMouseOver}
+                    onMouseLeave={this.onComicsMouseLeave}
+                >
                     {
                         comicsHover ?
-                            <Overlay>
+                            <Overlay onClick={this.onComicClick}>
                                 <Title>COMICS</Title>
                             </Overlay> :
                             <React.Fragment />
