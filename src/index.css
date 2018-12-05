@@ -29,3 +29,31 @@ code {
   flex: 1;
   align-self: stretch;
 }
+
+@font-face {
+  font-family: 'Marvel-Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./assets/fonts/Marvel-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Marvel-Bold';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./assets/fonts/Marvel-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Marvel-Italic';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./assets/fonts/Marvel-Italic.ttf');
+}
+
+@font-face {
+  font-family: 'Marvel-Bold-Italic';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./assets/fonts/Marvel-BoldItalic.ttf');
+}

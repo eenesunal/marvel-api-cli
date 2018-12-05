@@ -13,7 +13,9 @@ export default class CharacterSearch extends React.Component {
         this.state = {
             characters: [],
             callLimit: 50,
-            callOffset: 0
+            callOffset: 0,
+            searchKey: "",
+            searchResult: []
         }
     }
 
@@ -25,6 +27,21 @@ export default class CharacterSearch extends React.Component {
         })
             .then(this.onCharactersSuccess)
             .catch(this.onCharactersFailure)
+    }
+
+    onSearchChange = (e) => {
+        let searchKey = e.currentTarget.value
+        this.setState({ searchKey }, () => {
+            if (this.state.searchKey.length > 2) {
+                getJSON({
+                    url: "characters",
+                    limit: this.state.callLimit,
+                    nameStartsWith: this.state.searchKey
+                })
+                    .then(this.onSearchSuccess)
+                    .catch(this.onCharactersFailure)
+            }
+        })
     }
 
     loadMore = () => {
@@ -41,6 +58,12 @@ export default class CharacterSearch extends React.Component {
         this.setState({
             characters: resolve.data.results,
             callOffset: this.state.callOffset + this.state.callLimit
+        })
+    }
+
+    onSearchSuccess = (resolve) => {
+        this.setState({
+            searchResult: resolve.data.results
         })
     }
 
@@ -70,23 +93,30 @@ export default class CharacterSearch extends React.Component {
         return (
             <Container>
                 <Header>
-                    <Input />
+                    <Input
+                        onChange={this.onSearchChange}
+                        placeholder="Type a Marvel character name.."
+                    />
                 </Header>
                 <Content>
-                    <List>
-                        {
-                            map(characters, (character, key) => {
-                                return (
-                                    <li key={key}>
-                                        <Link href="#">{character.name}</Link>
-                                    </li>
-                                )
-                            })
-                        }
-                        <li>
-                            <Link onClick={this.loadMore} href="#">Load more..</Link>
-                        </li>
-                    </List>
+                    {
+                        characters.length > 0 ?
+                            <List>
+                                {
+                                    map(characters, (character, key) => {
+                                        return (
+                                            <li key={key}>
+                                                <Link href="#">{character.name}</Link>
+                                            </li>
+                                        )
+                                    })
+                                }
+                                <li>
+                                    <Link onClick={this.loadMore} href="#">Load more..</Link>
+                                </li>
+                            </List> :
+                            <React.Fragment />
+                    }
                 </Content>
             </Container>
         )

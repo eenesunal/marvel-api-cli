@@ -26,18 +26,32 @@ export const doRequest = (request) => {
     }
 
     return new Promise((resolve, reject) => {
-        fetch(new Request(`${API + request.url}?limit=${request.limit}&offset=${request.offset}&apikey=${API_KEY}`, request)).then((response) => {
-            response.traceId = response.headers.get("x-trace-id")
-            if (response.status < 400) {
-                return resolve(response)
-            }
-            return reject(response)
-        }).catch((response) => {
-            if (response.headers) {
+        if (request) {
+            let nameStartsWith = request.nameStartsWith ? 'nameStartsWith=' + request.nameStartsWith : ""
+            let limit = request.limit ? 'limit=' + request.limit : ""
+            let offset = request.offset ? 'offset=' + request.offset : ""
+            let apiKey = `apikey=${API_KEY}`
+
+            let params = `${nameStartsWith}&${limit}&${offset}&${apiKey}`
+
+            if (params.charAt(0) === "&") params = params.substr(1)
+            if (params.charAt(params.length - 1) === "&") params = params.substring(0, params.length - 1)
+
+            const url = `${API + request.url}?${params}`
+
+            fetch(new Request(url, request)).then((response) => {
                 response.traceId = response.headers.get("x-trace-id")
-            }
-            return reject(response)
-        })
+                if (response.status < 400) {
+                    return resolve(response)
+                }
+                return reject(response)
+            }).catch((response) => {
+                if (response.headers) {
+                    response.traceId = response.headers.get("x-trace-id")
+                }
+                return reject(response)
+            })
+        }
     })
 }
 
