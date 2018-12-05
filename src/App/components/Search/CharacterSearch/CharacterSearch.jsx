@@ -1,10 +1,10 @@
 import React from "react"
 
-import { map } from "lodash"
+import { map, sortBy } from "lodash"
 import { getJSON } from "../../../../request"
 
 import { Container, Content, Header } from "./CharacterSearch.styled"
-import { Input, VerticalList as List } from "../../../commons"
+import { Input, Link, VerticalList as List } from "../../../commons"
 
 export default class CharacterSearch extends React.Component {
     constructor(props) {
@@ -12,25 +12,36 @@ export default class CharacterSearch extends React.Component {
 
         this.state = {
             characters: [],
-            charactersFlat: []
+            callLimit: 50,
+            callOffset: 0
         }
     }
 
     componentDidMount() {
-        getJSON({ url: "characters" })
+        getJSON({
+            url: "characters",
+            limit: this.state.callLimit,
+            offset: this.state.callOffset
+        })
             .then(this.onCharactersSuccess)
             .catch(this.onCharactersFailure)
     }
 
-    onCharactersSuccess = (resolve) => {
-        this.setState({ characters: resolve.data.results })
+    loadMore = () => {
+        getJSON({
+            url: "characters",
+            limit: this.state.callLimit,
+            offset: this.state.callOffset
+        })
+            .then(this.onLoadMoreSuccess)
+            .catch(this.onCharactersFailure)
+    }
 
-        let charactersFlat = [];
-        for (let i = 0; i < resolve.data.results.length; i++) {
-            let dataItem = resolve.data.results[i]
-            charactersFlat.push({ name: dataItem.name, id: dataItem.id })
-        }
-        this.setState({ charactersFlat })
+    onCharactersSuccess = (resolve) => {
+        this.setState({
+            characters: resolve.data.results,
+            callOffset: this.state.callOffset + this.state.callLimit
+        })
     }
 
     onCharactersFailure = (error) => {
@@ -38,8 +49,23 @@ export default class CharacterSearch extends React.Component {
         console.log(error)
     }
 
+    onLoadMoreSuccess = (resolve) => {
+        let characters = resolve.data.results
+        this.state.characters.forEach((character) => {
+            characters.push(character)
+        })
+
+        characters = sortBy(characters, ["name"])
+
+        this.setState({
+            characters: characters,
+            callOffset: this.state.callOffset + this.state.callLimit
+        })
+    }
+
+
     render() {
-        const { charactersFlat } = this.state
+        const { characters } = this.state
 
         return (
             <Container>
@@ -49,12 +75,17 @@ export default class CharacterSearch extends React.Component {
                 <Content>
                     <List>
                         {
-                            map(charactersFlat, (character) => {
+                            map(characters, (character, key) => {
                                 return (
-                                    <li>{character.name}</li>
+                                    <li key={key}>
+                                        <Link href="#">{character.name}</Link>
+                                    </li>
                                 )
                             })
                         }
+                        <li>
+                            <Link onClick={this.loadMore} href="#">Load more..</Link>
+                        </li>
                     </List>
                 </Content>
             </Container>

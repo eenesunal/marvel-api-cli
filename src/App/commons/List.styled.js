@@ -4,14 +4,14 @@ export const VerticalList = styled.ul`
     display: flex;
     /* align-items: center; */
     flex-wrap: wrap;
+    align-self: flex-start;
 
     margin: 0;
     padding: 0;
     list-style-type: none;
 
-    &:li {
+    li {
         display: flex;
-        flex: 1;
         margin: 5px;
         padding: 5px;
     }

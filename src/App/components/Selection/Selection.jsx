@@ -42,17 +42,17 @@ export default class Selection extends React.Component {
     onCharacterClick = () => {
         this.setState({
             charactersClicked: true
-        });
+        })
     }
 
     onComicClick = () => {
         this.setState({
             comicsClicked: true
-        });
+        })
     }
 
     render() {
-        const { charactersHover, charactersClicked, comicsHover, comicsClicked } = this.state;
+        const { charactersHover, charactersClicked, comicsHover, comicsClicked } = this.state
 
         if (charactersClicked) return <Redirect push to="/characters" />
         if (comicsClicked) return <Redirect push to="/comics" />

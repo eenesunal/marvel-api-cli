@@ -26,7 +26,7 @@ export const doRequest = (request) => {
     }
 
     return new Promise((resolve, reject) => {
-        fetch(new Request(`${API + request.url}?apikey=${API_KEY}`, request)).then((response) => {
+        fetch(new Request(`${API + request.url}?limit=${request.limit}&offset=${request.offset}&apikey=${API_KEY}`, request)).then((response) => {
             response.traceId = response.headers.get("x-trace-id")
             if (response.status < 400) {
                 return resolve(response)
