@@ -106,13 +106,13 @@ export default class CharacterSearch extends React.Component {
                                     map(characters, (character, key) => {
                                         return (
                                             <li key={key}>
-                                                <Link href="#">{character.name}</Link>
+                                                <Link>{character.name}</Link>
                                             </li>
                                         )
                                     })
                                 }
                                 <li>
-                                    <Link onClick={this.loadMore} href="#">Load more..</Link>
+                                    <Link onClick={this.loadMore}>Load more..</Link>
                                 </li>
                             </List> :
                             <React.Fragment />
