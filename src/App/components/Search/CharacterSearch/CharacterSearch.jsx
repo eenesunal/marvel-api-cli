@@ -1,9 +1,10 @@
 import React from "react"
+import { Redirect } from "react-router-dom"
 
 import { map, sortBy } from "lodash"
 import { getJSON } from "../../../../request"
 
-import { Container, Content, Header } from "./CharacterSearch.styled"
+import { Container, Content, Header, SearchButton as Button } from "./CharacterSearch.styled"
 import { Input, Link, VerticalList as List } from "../../../commons"
 
 export default class CharacterSearch extends React.Component {
@@ -15,7 +16,8 @@ export default class CharacterSearch extends React.Component {
             callLimit: 50,
             callOffset: 0,
             searchKey: "",
-            searchResult: []
+            searchResult: [],
+            search: false
         }
     }
 
@@ -29,19 +31,13 @@ export default class CharacterSearch extends React.Component {
             .catch(this.onCharactersFailure)
     }
 
-    onSearchChange = (e) => {
+    onSearchKeyChange = (e) => {
         let searchKey = e.currentTarget.value
-        this.setState({ searchKey }, () => {
-            if (this.state.searchKey.length > 2) {
-                getJSON({
-                    url: "characters",
-                    limit: this.state.callLimit,
-                    nameStartsWith: this.state.searchKey
-                })
-                    .then(this.onSearchSuccess)
-                    .catch(this.onCharactersFailure)
-            }
-        })
+        this.setState({ searchKey })
+    }
+
+    onSearch = (e) => {
+        this.setState({search: true})
     }
 
     loadMore = () => {
@@ -88,15 +84,18 @@ export default class CharacterSearch extends React.Component {
 
 
     render() {
-        const { characters } = this.state
+        const { characters, search, searchKey } = this.state
+
+        if(search) return <Redirect push to={`/characters/${searchKey}`} />
 
         return (
             <Container>
                 <Header>
                     <Input
-                        onChange={this.onSearchChange}
+                        onChange={this.onSearchKeyChange}
                         placeholder="Type a Marvel character name.."
                     />
+                    <Button onClick={this.onSearch}>Search</Button>
                 </Header>
                 <Content>
                     {

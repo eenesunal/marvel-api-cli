@@ -25,6 +25,23 @@ export const Header = styled.div`
     }
 `;
 
+export const SearchButton = styled.button`
+    padding: 10px;
+    margin: 10px;
+
+    border: 1px solid transparent;
+    border-radius: 5px;
+    outline: none;
+
+    color: #eee;
+    background: red;
+    font-size: 24px;
+
+    &:hover {
+        background-color: #ef4747
+    }
+`;
+
 export const Content = styled.div`
     display: flex;
     flex-wrap: wrap;
