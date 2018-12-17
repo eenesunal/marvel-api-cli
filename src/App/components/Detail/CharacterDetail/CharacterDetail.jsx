@@ -13,7 +13,7 @@ export default class CharacterDetail extends React.Component {
     }
 
     componentDidMount() {
-    getJSON({url: `characters/${this.props.match.params.characterId}`})
+        getJSON({url: `characters/${this.props.match.params.characterId}`})
             .then(this.onCharacterSuccess)
             .catch(this.onCharacterFailure)
     }
