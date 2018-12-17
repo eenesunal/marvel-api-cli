@@ -4,9 +4,11 @@ import { Redirect } from "react-router-dom"
 
 import { getJSON } from "../../../../request"
 
-import { Box, Description, Container, Left, Name, Right, Thumbnail, ThumbnailOverlay, ThumbnailText, Results } from "./CharacterResult.styled"
+import { Box, Description, Container, Left, Logo, Name, Right, Thumbnail, ThumbnailOverlay, ThumbnailText, Results } from "./CharacterResult.styled"
 import { Header, SearchButton as Button } from "../../Search/CharacterSearch/CharacterSearch.styled"
 import { Input } from "../../../commons/index"
+
+import logo from "../../../../assets/img/logo.png"
 
 export default class CharacterResult extends React.Component {
     constructor(props) {
@@ -82,6 +84,7 @@ export default class CharacterResult extends React.Component {
         return (
             <Container>
                 <Header>
+                    <Logo src={logo}/>
                     <Input
                         placeholder="Type a Marvel character name.."
                     />

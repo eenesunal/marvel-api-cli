@@ -10,6 +10,10 @@ export const Container = styled.div`
     padding: 0;
 `;
 
+export const Logo = styled.img`
+    width: 200px;
+`;
+
 export const Results = styled.div`
     display: flex;
     flex: 11;
@@ -17,10 +21,12 @@ export const Results = styled.div`
     align-self: stretch;
     flex-wrap: wrap;
     justify-content: center;
-    overflow-y: auto;
-    background-color: #191A1C;
 
     width: 100%;
+    overflow-y: auto;
+    padding: 0 10px;
+
+    background-color: #191A1C;
 `;
 
 export const Box = styled.div`
