@@ -37,7 +37,7 @@ export default class CharacterSearch extends React.Component {
     }
 
     onSearch = (e) => {
-        this.setState({search: true})
+        this.setState({ search: true })
     }
 
     loadMore = () => {
@@ -86,7 +86,7 @@ export default class CharacterSearch extends React.Component {
     render() {
         const { characters, search, searchKey } = this.state
 
-        if(search) return <Redirect push to={`/characters/${searchKey}`} />
+        if (search) return <Redirect push to={`/characters/${searchKey}`} />
 
         return (
             <Container>

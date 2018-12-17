@@ -4,7 +4,9 @@ import { Redirect } from "react-router-dom"
 
 import { getJSON } from "../../../../request"
 
-import { Box, Description, Container, Left, Name, Right, Thumbnail } from "./CharacterResult.styled"
+import { Box, Description, Container, Left, Name, Right, Thumbnail, ThumbnailOverlay, ThumbnailText, Results } from "./CharacterResult.styled"
+import { Header, SearchButton as Button } from "../../Search/CharacterSearch/CharacterSearch.styled"
+import { Input } from "../../../commons/index"
 
 export default class CharacterResult extends React.Component {
     constructor(props) {
@@ -13,6 +15,7 @@ export default class CharacterResult extends React.Component {
         this.state = {
             result: [],
             characters: [],
+            characterSelected: false,
             notFound: false
         }
     }
@@ -63,33 +66,63 @@ export default class CharacterResult extends React.Component {
         console.log(error)
     }
 
+    onCharacterSelect = (e) => {
+        this.setState({
+            characterSelected: true,
+            selectedCharacterId: e.currentTarget.attributes.id.value
+        })
+    }
+
     render() {
-        const { characters, notFound } = this.state
-        console.log(characters)
+        const { characters, characterSelected, notFound, selectedCharacterId } = this.state
 
         if (notFound) return <Redirect push to="/characters" />
+        if (characterSelected) return <Redirect push to={`/characters/detail/${selectedCharacterId}`} />
 
         return (
             <Container>
-                {
-                    map(characters, (character, key) => {
-                        return (
-                            <Box key={key}>
-                                <Left>
-                                    <Thumbnail src={`${character.thumbnail.path}.${character.thumbnail.extension}`} />
-                                </Left>
-                                <Right>
-                                    <Name>
-                                        {character.name}
-                                    </Name>
-                                    <Description>
-                                        {character.description}
-                                    </Description>
-                                </Right>
-                            </Box>
-                        )
-                    })
-                }
+                <Header>
+                    <Input
+                        placeholder="Type a Marvel character name.."
+                    />
+                    <Button>Search</Button>
+                </Header>
+                <Results>
+                    {
+                        map(characters, (character, key) => {
+                            if (!character.description && (character.description === "" || character.description === " ")) {
+                                character.description = "Description not found."
+                            }
+
+                            return (
+                                <Box key={key}>
+                                    <Left>
+                                        <Thumbnail src={`${character.thumbnail.path}.${character.thumbnail.extension}`} />
+                                        <ThumbnailOverlay>
+                                            <ThumbnailText
+                                                id={character.id}
+                                                onClick={this.onCharacterSelect}
+                                            >
+                                                {character.name}
+                                            </ThumbnailText>
+                                        </ThumbnailOverlay>
+                                    </Left>
+                                    <Right>
+                                        <Name
+                                            id={character.id}
+                                            onClick={this.onCharacterSelect}
+                                        >
+                                            {character.name}
+                                        </Name>
+                                        <Description>
+                                            {character.description}
+                                        </Description>
+                                    </Right>
+                                </Box>
+                            )
+                        })
+                    }
+                </Results>
             </Container>
         )
     }
