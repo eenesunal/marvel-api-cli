@@ -10,6 +10,7 @@ export const Container = styled.div`
 
 export const Header = styled.div`
     display: flex;
+    flex-direction: column;
     flex: 5;
     justify-content: center;
     align-items: center;
@@ -46,6 +47,8 @@ export const Content = styled.div`
     display: flex;
     flex-wrap: wrap;
     flex: 3;
+
+    overflow-y: auto;
 
     background-color: #191A1C;
     

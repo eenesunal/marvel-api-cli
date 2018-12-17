@@ -7,6 +7,8 @@ import { getJSON } from "../../../../request"
 import { Container, Content, Header, SearchButton as Button } from "./CharacterSearch.styled"
 import { Input, Link, VerticalList as List } from "../../../commons"
 
+import logo from "../../../../assets/img/logo.png"
+
 export default class CharacterSearch extends React.Component {
     constructor(props) {
         super(props)
@@ -91,6 +93,7 @@ export default class CharacterSearch extends React.Component {
         return (
             <Container>
                 <Header>
+                    <img src={logo} />
                     <Input
                         onChange={this.onSearchKeyChange}
                         placeholder="Type a Marvel character name.."
