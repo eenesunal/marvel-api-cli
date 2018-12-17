@@ -84,7 +84,7 @@ export default class CharacterResult extends React.Component {
         return (
             <Container>
                 <Header>
-                    <Logo src={logo}/>
+                    <Logo alt="logo" src={logo}/>
                     <Input
                         placeholder="Type a Marvel character name.."
                     />

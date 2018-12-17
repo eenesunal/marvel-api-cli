@@ -93,7 +93,7 @@ export default class CharacterSearch extends React.Component {
         return (
             <Container>
                 <Header>
-                    <img src={logo} />
+                    <img alt="logo" src={logo} />
                     <Input
                         onChange={this.onSearchKeyChange}
                         placeholder="Type a Marvel character name.."

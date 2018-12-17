@@ -28,12 +28,12 @@ export const doRequest = (request) => {
     return new Promise((resolve, reject) => {
         if (request) {
             let nameStartsWith = request.nameStartsWith ? 'nameStartsWith=' + request.nameStartsWith : ""
-            let name = request.name ? 'name=' + request.name : ""
-            let limit = request.limit ? 'limit=' + request.limit : ""
-            let offset = request.offset ? 'offset=' + request.offset : ""
-            let apiKey = `apikey=${API_KEY}`
+            let name = request.name ? '&name=' + request.name : ""
+            let limit = request.limit ? '&limit=' + request.limit : ""
+            let offset = request.offset ? '&offset=' + request.offset : ""
+            let apiKey = `&apikey=${API_KEY}`
 
-            let params = `${nameStartsWith}&${name}&${limit}&${offset}&${apiKey}`
+            let params = nameStartsWith + name + limit + offset + apiKey
 
             if (params.charAt(0) === "&") params = params.substr(1)
             if (params.charAt(params.length - 1) === "&") params = params.substring(0, params.length - 1)
