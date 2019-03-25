@@ -1,6 +1,6 @@
 import React from "react"
 import { map } from "lodash"
-import { Redirect } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
 
 import { getJSON } from "../../../../request"
 
@@ -18,7 +18,6 @@ export default class CharacterResult extends React.Component {
             result: [],
             characters: [],
             characterSelected: false,
-            notFound: false
         }
     }
 
@@ -84,7 +83,12 @@ export default class CharacterResult extends React.Component {
         return (
             <Container>
                 <Header>
-                    <Logo alt="logo" src={logo}/>
+                    <Link to="/">
+                        <Logo
+                            alt="logo"
+                            src={logo}
+                        />
+                    </Link>
                     <Input
                         placeholder="Type a Marvel character name.."
                     />
@@ -96,7 +100,6 @@ export default class CharacterResult extends React.Component {
                             if (!character.description && (character.description === "" || character.description === " ")) {
                                 character.description = "Description not found."
                             }
-
                             return (
                                 <Box key={key}>
                                     <Left>

@@ -17,14 +17,13 @@ export const Logo = styled.img`
 export const Results = styled.div`
     display: flex;
     flex: 11;
-    flex-direction: column;
+    flex-direction: row;
     align-self: stretch;
     flex-wrap: wrap;
     justify-content: center;
 
-    /* width: 100%; */
     overflow-y: auto;
-    padding: 0 10px;
+    padding: 10px 0;
 
     background-color: #191A1C;
 `;
