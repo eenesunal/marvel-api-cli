@@ -1,6 +1,10 @@
 import React from "react"
+import { map } from "lodash"
+import { Link } from "react-router-dom"
 
 import { getJSON } from "../../../../request"
+
+import { Comic, ComicsList, ComicName, Container, Description, Image, ImageWrapper, Information, Name } from "./CharacterDetail.styled"
 
 export default class CharacterDetail extends React.Component {
     constructor(props) {
@@ -30,8 +34,35 @@ export default class CharacterDetail extends React.Component {
     }
 
     render() {
-        return (
-            <span>Character Detail</span>
-        )
+        const {character} = this.state
+        if(character) {
+            return (
+                <Container>
+                    <ImageWrapper>
+                        <Image src={`${character.thumbnail.path}.${character.thumbnail.extension}`} />
+                    </ImageWrapper>
+                    <Information>
+                        <Name>{ character.name }</Name>
+                        <Description>{ character.description }</Description>
+                    </Information>
+                    <ComicsList>
+                        {
+                            map(character.comics.items, (comic, key) => {
+                                return (
+                                    <Comic key={key}>
+                                        <ComicName>{comic.name}</ComicName>
+                                        <Link to={comic.resourceURI} />
+                                    </Comic>
+                                )
+                            })
+                        }
+                    </ComicsList>
+                </Container>
+            )
+        } else {
+            return (
+                <React.Fragment />
+            )
+        }
     }
 }
