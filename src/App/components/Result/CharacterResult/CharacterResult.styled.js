@@ -22,7 +22,7 @@ export const Results = styled.div`
     flex-wrap: wrap;
     justify-content: center;
 
-    width: 100%;
+    /* width: 100%; */
     overflow-y: auto;
     padding: 0 10px;
 

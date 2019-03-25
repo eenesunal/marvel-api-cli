@@ -1,5 +1,10 @@
+import MD5 from "crypto-js/md5"
+
 const API = "https://gateway.marvel.com/v1/public/"
-const API_KEY = "458f6c63683c89d3b7a2dc77b8514cf2"
+const TIME_STAMP = new Date().getTime()
+const PUBLIC_KEY = "458f6c63683c89d3b7a2dc77b8514cf2"
+const PRIVATE_KEY = "26105905d1e8199838c01dbb5b3cb3cc17fd4d2a"
+const HASH = MD5(TIME_STAMP + PRIVATE_KEY + PUBLIC_KEY).toString()
 
 export const getJSON = (request) => {
     return new Promise((resolve, reject) => {
@@ -31,9 +36,10 @@ export const doRequest = (request) => {
             let name = request.name ? '&name=' + request.name : ""
             let limit = request.limit ? '&limit=' + request.limit : ""
             let offset = request.offset ? '&offset=' + request.offset : ""
-            let apiKey = `&apikey=${API_KEY}`
+            let apiKey = `&apikey=${PUBLIC_KEY}`
+            let hash = `&hash=${HASH}`
 
-            let params = nameStartsWith + name + limit + offset + apiKey
+            let params = nameStartsWith + name + limit + offset + apiKey + hash
 
             if (params.charAt(0) === "&") params = params.substr(1)
             if (params.charAt(params.length - 1) === "&") params = params.substring(0, params.length - 1)
