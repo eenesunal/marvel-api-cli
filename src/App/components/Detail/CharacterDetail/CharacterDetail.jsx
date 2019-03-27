@@ -1,10 +1,9 @@
 import React from "react"
 import { map } from "lodash"
-import { Link } from "react-router-dom"
 
 import { getJSON } from "../../../../request"
 
-import { Comic, ComicsList, ComicName, Container, Description, Image, ImageWrapper, Information, Name } from "./CharacterDetail.styled"
+import { ListWrapper, ListItem, VerticalList, ListItemText, ListItemHeader, Container, Description, Image, ImageWrapper, Information, Name } from "./CharacterDetail.styled"
 
 export default class CharacterDetail extends React.Component {
     constructor(props) {
@@ -23,9 +22,7 @@ export default class CharacterDetail extends React.Component {
     }
 
     onCharacterSuccess = (result) => {
-        this.setState({ result: result, character: result.data.results[0] }, () => {
-            console.log(this.state)
-        })
+        this.setState({ result: result, character: result.data.results[0] })
     }
 
     onCharacterFailure = (error) => {
@@ -34,29 +31,83 @@ export default class CharacterDetail extends React.Component {
     }
 
     render() {
-        const {character} = this.state
-        if(character) {
+        const { character } = this.state
+        if (character) {
             return (
                 <Container>
                     <ImageWrapper>
                         <Image src={`${character.thumbnail.path}.${character.thumbnail.extension}`} />
                     </ImageWrapper>
                     <Information>
-                        <Name>{ character.name }</Name>
-                        <Description>{ character.description }</Description>
+                        <Name>{character.name}</Name>
+                        <Description>{character.description}</Description>
                     </Information>
-                    <ComicsList>
-                        {
-                            map(character.comics.items, (comic, key) => {
-                                return (
-                                    <Comic key={key}>
-                                        <ComicName>{comic.name}</ComicName>
-                                        <Link to={comic.resourceURI} />
-                                    </Comic>
-                                )
-                            })
-                        }
-                    </ComicsList>
+                    <ListWrapper>
+                        <VerticalList>
+                            <ListItemHeader>Featured Comics</ListItemHeader>
+                            {
+                                character.comics.items.length > 0 ?
+                                    map(character.comics.items, (comic, key) => {
+                                        return (
+                                            <ListItem key={key}>
+                                                <ListItemText>{comic.name}</ListItemText>
+                                            </ListItem>
+                                        )
+                                    }) :
+                                    <ListItem>
+                                        <ListItemText>No comics found.</ListItemText>
+                                    </ListItem>
+                            }
+                        </VerticalList>
+                        <VerticalList>
+                            <ListItemHeader>Featured Events</ListItemHeader>
+                            {
+                                character.events.items.length > 0 ?
+                                    map(character.events.items, (event, key) => {
+                                        return (
+                                            <ListItem key={key}>
+                                                <ListItemText>{event.name}</ListItemText>
+                                            </ListItem>
+                                        )
+                                    }) :
+                                    <ListItem>
+                                        <ListItemText>No events found.</ListItemText>
+                                    </ListItem>
+                            }
+                        </VerticalList>
+                        <VerticalList>
+                            <ListItemHeader>Featured Series</ListItemHeader>
+                            {
+                                character.series.items.length > 0 ?
+                                    map(character.series.items, (serie, key) => {
+                                        return (
+                                            <ListItem key={key}>
+                                                <ListItemText>{serie.name}</ListItemText>
+                                            </ListItem>
+                                        )
+                                    }) :
+                                    <ListItem>
+                                        <ListItemText>No series found.</ListItemText>
+                                    </ListItem>
+                            }
+                        </VerticalList>
+                        <VerticalList>
+                            <ListItemHeader>Featured Stories</ListItemHeader>
+                            {
+                                character.stories.items.length > 0 ?
+                                    map(character.stories.items, (story, key) => {
+                                        return (
+                                            <ListItem key={key}>
+                                                <ListItemText>{story.name}</ListItemText>
+                                            </ListItem>
+                                        )
+                                    }) :
+                                    <ListItem>
+                                        <ListItemText>No stories found.</ListItemText>
+                                    </ListItem>
+                            }
+                        </VerticalList>
+                    </ListWrapper>
                 </Container>
             )
         } else {

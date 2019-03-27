@@ -1,13 +1,13 @@
 import React from "react"
 import { Redirect } from "react-router-dom"
-
 import { map, sortBy } from "lodash"
+
+import Search from "../Search/Search"
+
 import { getJSON } from "../../../../request"
 
-import { Container, Content, Header, SearchButton as Button } from "./CharacterSearch.styled"
-import { Input, Link, VerticalList as List } from "../../../commons"
-
-import logo from "../../../../assets/img/logo.png"
+import { Container, Content } from "./CharacterSearch.styled"
+import { Link, VerticalList as List } from "../../../commons"
 
 export default class CharacterSearch extends React.Component {
     constructor(props) {
@@ -24,22 +24,29 @@ export default class CharacterSearch extends React.Component {
     }
 
     componentDidMount() {
-        getJSON({
-            url: "characters",
-            limit: this.state.callLimit,
-            offset: this.state.callOffset
+        const cachedCharacters = localStorage.getItem("characters") ? JSON.parse(localStorage.getItem("characters")) : []
+
+        if (!cachedCharacters || cachedCharacters.length < 1) {
+            getJSON({
+                url: "characters",
+                limit: this.state.callLimit,
+                offset: this.state.callOffset
+            })
+                .then(this.onCharactersSuccess)
+                .catch(this.onCharactersFailure)
+        } else {
+            this.setState({
+                characters: cachedCharacters,
+                callOffset: this.state.callOffset + this.state.callLimit
+            })
+        }
+    }
+
+    onSearch = (searchKey) => {
+        this.setState({
+            search: true,
+            searchKey: searchKey
         })
-            .then(this.onCharactersSuccess)
-            .catch(this.onCharactersFailure)
-    }
-
-    onSearchKeyChange = (e) => {
-        let searchKey = e.currentTarget.value
-        this.setState({ searchKey })
-    }
-
-    onSearch = (e) => {
-        this.setState({ search: true })
     }
 
     loadMore = () => {
@@ -57,6 +64,8 @@ export default class CharacterSearch extends React.Component {
             characters: resolve.data.results,
             callOffset: this.state.callOffset + this.state.callLimit
         })
+
+        localStorage.setItem("characters", JSON.stringify(resolve.data.results))
     }
 
     onSearchSuccess = (resolve) => {
@@ -92,14 +101,7 @@ export default class CharacterSearch extends React.Component {
 
         return (
             <Container>
-                <Header>
-                    <img alt="logo" src={logo} />
-                    <Input
-                        onChange={this.onSearchKeyChange}
-                        placeholder="Type a Marvel character name.."
-                    />
-                    <Button onClick={this.onSearch}>Search</Button>
-                </Header>
+                <Search onSearch={this.onSearch} />
                 <Content>
                     {
                         characters.length > 0 ?

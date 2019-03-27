@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route } from "react-router-dom"
 
-import { Selection, ComicSearch, CharacterSearch, CharacterResult, CharacterDetail } from "../components"
+import { CharacterSearch, CharacterResult, CharacterDetail } from "../components"
 
 import { Container } from "./App.styled"
 
@@ -10,11 +10,9 @@ export default class App extends Component {
     return (
       <Router>
         <Container>
-          <Route path="/" exact component={Selection} />
-          <Route path="/characters" exact component={CharacterSearch} />
+          <Route path="/" exact component={CharacterSearch} />
           <Route path="/characters/:searchKey" exact component={CharacterResult} />
           <Route path="/characters/:searchKey/:characterId" exact component={CharacterDetail} />
-          <Route path="/comics" exact component={ComicSearch} />
         </Container>
       </Router>
     )

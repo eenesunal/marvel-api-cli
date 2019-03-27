@@ -20,7 +20,9 @@ export const Results = styled.div`
     flex-direction: row;
     align-self: stretch;
     flex-wrap: wrap;
-    justify-content: center;
+
+    justify-content: flex-start;
+    align-items: flex-start;
 
     overflow-y: auto;
     padding: 10px 0;
@@ -31,7 +33,7 @@ export const Results = styled.div`
 export const Box = styled.div`
     display: flex;
 
-    width: calc(50% - 20px);
+    flex: 1 0 50%;
     height: 200px;
     box-sizing: border-box;
 
@@ -41,10 +43,6 @@ export const Box = styled.div`
     border: 1px solid #cdcdcd;
     border-radius: 5px;
     background-color: #f4f8fa;
-
-    &:nth-of-type(2n) {
-        margin-right: 0;
-    }
 `;
 
 export const Left = styled.div`
@@ -65,10 +63,11 @@ export const Left = styled.div`
 export const Right = styled.div`
     display: flex;
     flex-direction: column;
-    flex: 2;
+    flex: 7;
     height: 100%;
 
     padding: 5px;
+    box-sizing: border-box;
 `;
 
 export const Thumbnail = styled.img`

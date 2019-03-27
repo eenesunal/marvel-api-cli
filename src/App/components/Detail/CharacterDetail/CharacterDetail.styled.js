@@ -4,8 +4,11 @@ export const Container = styled.div`
     display: flex;
     flex: 1;
     flex-direction: column;
+    align-self: stretch;
 
     background-color: #191A1C;
+
+    padding: 0 10px;
 `;
 
 export const ImageWrapper = styled.div`
@@ -13,6 +16,7 @@ export const ImageWrapper = styled.div`
     justify-content: center;
     align-items: center;
     align-content: center;
+    flex-shrink: 0;
 
     width: 200px;
     height: 200px;
@@ -35,6 +39,7 @@ export const Image = styled.img`
 export const Information = styled.div`
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
 
     margin: 0;
     padding: 0;
@@ -56,21 +61,37 @@ export const Description = styled.p`
     padding: 0 5px;
 `;
 
-export const ComicsList = styled.div`
+export const ListWrapper = styled.div`
     display: flex;
-    width: 100%;
-
-    align-items: center;
-    overflow-x: auto;
+    flex: 1;
 `;
 
-export const Comic = styled.div`
+export const VerticalList = styled.div`
     display: flex;
-    width: 250px;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    padding: 0 5px;
 `;
 
-export const ComicName = styled.span`
+export const ListItem = styled.div`
+    display: flex;
+`;
+
+export const ListItemHeader = styled.span`
+    font-size: 16px;
+    color: #fff;
+    font-weight: 900;
+    text-decoration: underline;
+    
+    align-self: center;
+`;
+
+export const ListItemText = styled.span`
     font-size: 14px;
     color: #eee;
     font-weight: 400;
+    line-height: 21px;
 `;

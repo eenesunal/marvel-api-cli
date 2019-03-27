@@ -1,14 +1,14 @@
 import React from "react"
 import { map } from "lodash"
-import { Link, Redirect } from "react-router-dom"
+import { Redirect } from "react-router-dom"
+
+import Search from "../../Search/Search/Search"
 
 import { getJSON } from "../../../../request"
 
-import { Box, Description, Container, Left, Logo, Name, Right, Thumbnail, ThumbnailOverlay, ThumbnailText, Results } from "./CharacterResult.styled"
-import { Header, SearchButton as Button } from "../../Search/CharacterSearch/CharacterSearch.styled"
-import { Input } from "../../../commons/index"
 
-import logo from "../../../../assets/img/logo.png"
+import { Box, Description, Container, Left, Name, Right, Thumbnail, ThumbnailOverlay, ThumbnailText, Results } from "./CharacterResult.styled"
+
 
 export default class CharacterResult extends React.Component {
     constructor(props) {
@@ -18,6 +18,8 @@ export default class CharacterResult extends React.Component {
             result: [],
             characters: [],
             characterSelected: false,
+            search: false,
+            searchKey: ""
         }
     }
 
@@ -67,6 +69,18 @@ export default class CharacterResult extends React.Component {
         console.log(error)
     }
 
+    onSearchKeyChange = (e) => {
+        let searchKey = e.currentTarget.value
+        this.setState({ searchKey })
+    }
+
+    onSearch = (searchKey) => {
+        this.setState({
+            search: true,
+            searchKey: searchKey
+        })
+    }
+
     onCharacterSelect = (e) => {
         this.setState({
             characterSelected: true,
@@ -75,25 +89,15 @@ export default class CharacterResult extends React.Component {
     }
 
     render() {
-        const { characters, characterSelected, notFound, selectedCharacterId } = this.state
+        const { characters, characterSelected, notFound, selectedCharacterId, search, searchKey } = this.state
 
         if (notFound) return <Redirect push to="/characters" />
         if (characterSelected) return <Redirect push to={`/characters/detail/${selectedCharacterId}`} />
+        if (search) return <Redirect push to={`/characters/${searchKey}`} />
 
         return (
             <Container>
-                <Header>
-                    <Link to="/">
-                        <Logo
-                            alt="logo"
-                            src={logo}
-                        />
-                    </Link>
-                    <Input
-                        placeholder="Type a Marvel character name.."
-                    />
-                    <Button>Search</Button>
-                </Header>
+                <Search onSearch={this.onSearch} />
                 <Results>
                     {
                         map(characters, (character, key) => {
