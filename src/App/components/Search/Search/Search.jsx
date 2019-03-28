@@ -1,7 +1,7 @@
 import React from "react"
 
 import { Input } from "../../../commons"
-import { Header, SearchButton as Button } from "./Search.styled"
+import { Header, SearchButton as Button, Logo } from "./Search.styled"
 
 import logo from "../../../../assets/img/logo.png"
 
@@ -21,15 +21,21 @@ export default class CharacterSearch extends React.Component {
     }
 
     onSearch = (e) => {
-        this.props.onSearch(this.state.searchKey);
+        this.props.onSearch(this.state.searchKey)
+    }
+
+    onLogoClick = () => {
+        this.props.onLogoClick();
     }
 
     render() {
         return (
             <Header>
-                <img
+                <Logo
                     alt="logo"
                     src={logo}
+                    small={this.props.miniLogo}
+                    onClick={this.onLogoClick}
                 />
                 <Input
                     onChange={this.onSearchKeyChange}

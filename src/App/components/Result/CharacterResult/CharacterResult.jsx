@@ -19,7 +19,8 @@ export default class CharacterResult extends React.Component {
             characters: [],
             characterSelected: false,
             search: false,
-            searchKey: ""
+            searchKey: "",
+            backToHome: false
         }
     }
 
@@ -88,16 +89,27 @@ export default class CharacterResult extends React.Component {
         })
     }
 
-    render() {
-        const { characters, characterSelected, notFound, selectedCharacterId, search, searchKey } = this.state
+    onLogoClick = () => {
+        this.setState({
+            backToHome: true
+        })
+    }
 
-        if (notFound) return <Redirect push to="/characters" />
+    render() {
+        const { backToHome, characters, characterSelected, notFound, selectedCharacterId, search, searchKey } = this.state
+
+        if (notFound) return <Redirect push to="/" />
         if (characterSelected) return <Redirect push to={`/characters/detail/${selectedCharacterId}`} />
         if (search) return <Redirect push to={`/characters/${searchKey}`} />
+        if (backToHome) return <Redirect push to="/" />
 
         return (
             <Container>
-                <Search onSearch={this.onSearch} />
+                <Search
+                    miniLogo={true}
+                    onSearch={this.onSearch}
+                    onLogoClick={this.onLogoClick}
+                />
                 <Results>
                     {
                         map(characters, (character, key) => {

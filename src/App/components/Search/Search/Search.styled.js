@@ -33,3 +33,8 @@ export const SearchButton = styled.button`
         background-color: #ef4747
     }
 `;
+
+export const Logo = styled.img`
+    width: ${props => props.small ? "250px" : "unset"};
+    cursor: pointer;
+`;

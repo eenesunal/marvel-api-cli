@@ -34,7 +34,7 @@ export const Box = styled.div`
     display: flex;
 
     flex: 1 0 50%;
-    height: 200px;
+    height: 150px;
     box-sizing: border-box;
 
     margin: 0 10px 10px 0;

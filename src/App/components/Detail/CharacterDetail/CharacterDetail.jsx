@@ -1,9 +1,12 @@
 import React from "react"
+import { Redirect } from "react-router-dom"
 import { map } from "lodash"
 
 import { getJSON } from "../../../../request"
 
-import { ListWrapper, ListItem, VerticalList, ListItemText, ListItemHeader, Container, Description, Image, ImageWrapper, Information, Name } from "./CharacterDetail.styled"
+import { Logo, ListWrapper, ListItem, VerticalList, ListItemText, ListItemHeader, Container, Description, Image, ImageWrapper, Information, Name } from "./CharacterDetail.styled"
+
+import logo from "../../../../assets/img/logo.png"
 
 export default class CharacterDetail extends React.Component {
     constructor(props) {
@@ -11,7 +14,8 @@ export default class CharacterDetail extends React.Component {
 
         this.state = {
             result: null,
-            character: null
+            character: null,
+            backToHome: false
         }
     }
 
@@ -30,11 +34,24 @@ export default class CharacterDetail extends React.Component {
         console.error(error)
     }
 
+    onLogoClick = () => {
+        this.setState({
+            backToHome: true
+        })
+    }
+
     render() {
-        const { character } = this.state
+        const { backToHome, character } = this.state
+        if (backToHome) return <Redirect push to="/" />
+
         if (character) {
             return (
                 <Container>
+                    <Logo
+                        onClick={this.onLogoClick}
+                        src={logo}
+                        alt="logo"
+                    />
                     <ImageWrapper>
                         <Image src={`${character.thumbnail.path}.${character.thumbnail.extension}`} />
                     </ImageWrapper>

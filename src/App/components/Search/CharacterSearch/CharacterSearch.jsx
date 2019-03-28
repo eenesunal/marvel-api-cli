@@ -1,5 +1,5 @@
 import React from "react"
-import { Redirect } from "react-router-dom"
+import { Redirect, Link as RouterLink } from "react-router-dom"
 import { map, sortBy } from "lodash"
 
 import Search from "../Search/Search"
@@ -19,7 +19,7 @@ export default class CharacterSearch extends React.Component {
             callOffset: 0,
             searchKey: "",
             searchResult: [],
-            search: false
+            search: false,
         }
     }
 
@@ -93,6 +93,9 @@ export default class CharacterSearch extends React.Component {
         })
     }
 
+    onLogoClick = () => {
+        window.location.reload();
+    }
 
     render() {
         const { characters, search, searchKey } = this.state
@@ -101,7 +104,10 @@ export default class CharacterSearch extends React.Component {
 
         return (
             <Container>
-                <Search onSearch={this.onSearch} />
+                <Search
+                    onSearch={this.onSearch}
+                    onLogoClick={this.onLogoClick}
+                />
                 <Content>
                     {
                         characters.length > 0 ?
@@ -109,13 +115,18 @@ export default class CharacterSearch extends React.Component {
                                 {
                                     map(characters, (character, key) => {
                                         return (
-                                            <li key={key}>
-                                                <Link>{character.name}</Link>
-                                            </li>
+                                            <RouterLink
+                                                key={key}
+                                                to={`/characters/detail/${character.id}`}
+                                            >
+                                                <li onClick={this.onCharacterSelect}>
+                                                    <Link>{character.name}</Link>
+                                                </li>
+                                            </RouterLink>
                                         )
                                     })
                                 }
-                                <li>
+                                <li id='character-search-load-more'>
                                     <Link onClick={this.loadMore}>Load more..</Link>
                                 </li>
                             </List> :

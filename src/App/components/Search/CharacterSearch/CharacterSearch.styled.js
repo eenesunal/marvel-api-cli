@@ -4,6 +4,18 @@ export const Container = styled.div`
     display: flex;
     flex: 1;
     flex-direction: column;
+
+    a {
+        text-decoration: none;
+    }
+
+    li#character-search-load-more span {
+        color: red !important;
+
+        &:hover {
+            opacity: .7;
+        }
+    }
 `;
 
 export const Content = styled.div`

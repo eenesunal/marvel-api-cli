@@ -9,6 +9,21 @@ export const Container = styled.div`
     background-color: #191A1C;
 
     padding: 0 10px;
+    position: relative;
+`;
+
+export const Logo = styled.img`
+    position: absolute;
+    width: 100px;
+
+    top: 10px;
+    left: 10px;
+
+    cursor: pointer;
+
+    &:hover {
+        opacity: .8;
+    }
 `;
 
 export const ImageWrapper = styled.div`
