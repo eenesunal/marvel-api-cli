@@ -1,5 +1,6 @@
 {
   "name": "marvel-api-cli",
+  "homepage": "http://eenesunal.github.io/marvel-api-cli",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -29,7 +30,6 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "homepage": "http://eenesunal.github.io/marvel-api-cli",
   "devDependencies": {
     "gh-pages": "^2.0.1"
   }
