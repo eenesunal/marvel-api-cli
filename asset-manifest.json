@@ -7,10 +7,10 @@
   "runtime~main.js": "/marvel-api-cli/static/js/runtime~main.4f6a25e1.js",
   "runtime~main.js.map": "/marvel-api-cli/static/js/runtime~main.4f6a25e1.js.map",
   "static/media/logo.png": "/marvel-api-cli/static/media/logo.03e4eae6.png",
-  "static/media/index.css": "/marvel-api-cli/static/media/Marvel-Regular.ad1cc393.ttf",
+  "static/media/index.css": "/marvel-api-cli/static/media/Marvel-Italic.581d5483.ttf",
   "static/media/search-background.jpg": "/marvel-api-cli/static/media/search-background.560573aa.jpg",
   "static/css/main.72e46760.chunk.css.map": "/marvel-api-cli/static/css/main.72e46760.chunk.css.map",
   "index.html": "/marvel-api-cli/index.html",
-  "precache-manifest.6be29485a706f31933395712161bf4d0.js": "/marvel-api-cli/precache-manifest.6be29485a706f31933395712161bf4d0.js",
+  "precache-manifest.d960edcf0d378e558e006d49dc8be24c.js": "/marvel-api-cli/precache-manifest.d960edcf0d378e558e006d49dc8be24c.js",
   "service-worker.js": "/marvel-api-cli/service-worker.js"
 }

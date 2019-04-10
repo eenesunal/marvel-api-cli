@@ -24,14 +24,6 @@ self.__precacheManifest = [
     "url": "/marvel-api-cli/static/js/main.229eadb9.chunk.js"
   },
   {
-    "revision": "01bd3ccacea9b68eb76f9c9fe898437a",
-    "url": "/marvel-api-cli/static/media/Marvel-Bold.01bd3cca.ttf"
-  },
-  {
-    "revision": "581d548316d8e4d66c05f91800d4fde9",
-    "url": "/marvel-api-cli/static/media/Marvel-Italic.581d5483.ttf"
-  },
-  {
     "revision": "b6146edd746acdbd665fbddc922e1eac",
     "url": "/marvel-api-cli/static/media/Marvel-BoldItalic.b6146edd.ttf"
   },
@@ -40,7 +32,15 @@ self.__precacheManifest = [
     "url": "/marvel-api-cli/static/media/Marvel-Regular.ad1cc393.ttf"
   },
   {
-    "revision": "1c03a713bc6e98b911c6a6885ff9f7ec",
+    "revision": "01bd3ccacea9b68eb76f9c9fe898437a",
+    "url": "/marvel-api-cli/static/media/Marvel-Bold.01bd3cca.ttf"
+  },
+  {
+    "revision": "581d548316d8e4d66c05f91800d4fde9",
+    "url": "/marvel-api-cli/static/media/Marvel-Italic.581d5483.ttf"
+  },
+  {
+    "revision": "eb3b238be99dcc06d413cadd2eebbd2d",
     "url": "/marvel-api-cli/index.html"
   }
 ];
