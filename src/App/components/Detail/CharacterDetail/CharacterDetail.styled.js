@@ -10,6 +10,7 @@ export const Container = styled.div`
 
     padding: 0 10px;
     position: relative;
+    overflow-y: auto;
 `;
 
 export const Logo = styled.img`
@@ -93,6 +94,11 @@ export const VerticalList = styled.div`
 
 export const ListItem = styled.div`
     display: flex;
+
+    &:before {
+        content: "- ";
+        color: #fff;
+    }
 `;
 
 export const ListItemHeader = styled.span`
